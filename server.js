@@ -37,7 +37,9 @@ app.post('/api/sendMessage', async (req, res) => {
         const response = await axios.post(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
             chat_id: CHAT_ID,
             text: message,
-        });
+        },
+        { httpsAgent: agent } // 👈 aquí está la magia
+    );
         res.status(200).json({ success: true, data: response.data });
     } catch (error) {
         console.error('Error al enviar mensaje a Telegram:', error);
